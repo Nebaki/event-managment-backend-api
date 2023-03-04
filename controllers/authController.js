@@ -4,20 +4,18 @@ const sendToken = require("../utils/jsonToken");
 const ErrorHandler = require("../utils/errorHandler");
 
 
-//Register user   =>/api/v1/register
-exports.registerUser = catchAsyncError(async (req, res, next) => {
-    const { UserName, PhoneNumber, password } = req.body;
+//Register user via phone number  =>/api/v1/phone_register
+exports.phoneRegister = catchAsyncError(async (req, res, next) => {
+    const { userName, phoneNumber} = req.body;
   
-    const user = await User.create({
-       
-        UserName,
-      PhoneNumber,
-      password,
-      
+    const user = await User.create({     
+      userName,
+      phoneNumber,
     });
+
     res.status(201).json({
         user,
-        sucess:'nice work',
+        status:'User Registered Succesfully',
     })
   
     // sendToken(user, 200, 'success');
@@ -26,36 +24,25 @@ exports.registerUser = catchAsyncError(async (req, res, next) => {
   });
 
   
-
-
-
-  //Login user =>/api/v1/login
-
-exports.loginUser = catchAsyncError(async (req, res, next) => {
-    const { PhoneNumber, password } = req.body;
+//Signin user using phone number  =>/api/v1/phone_signin
+exports.phoneSignin = catchAsyncError(async (req, res, next) => {
+    const { phoneNumber } = req.body;
   
-    //check if email and password entered by the user
-    if (!PhoneNumber || !password) {
-      return next(new errorHandler("Please enter email and password", 400));
+    //check if phone number entered by the user is correct
+    if (!phoneNumber) {
+      return next(new ErrorHandler("Please enter your phone number", 400));
     }
   
     //Finding the user in database
-    const user = await User.findOne({ PhoneNumber }).select("+password");
+    const user = await User.findOne({ phoneNumber });
     if (!user) {
-      return next(new errorHandler("Invalid phone or Password", 401));
+      return next(new ErrorHandler("Phone Number not found", 401));
     }
   
-    //check if password is correct
-  
-    const isPasswordMatched = await user.comparePassword(password);
-  
-    if (!isPasswordMatched) {
-      return next(new errorHandler("Invalid Email or Password", 401));
-    }
 
     res.status(201).json({
         user,
-        sucess:'Logged in',
+        status:'User Logged In',
     })
     // sendToken(user, 200, res);
   });

@@ -5,26 +5,23 @@ const jwt = require('jsonwebtoken');
 
 
 const userSchema=mongoose.Schema({
-    FirstName:{
+    firstName:{
         type:String,
-        // required:[true,"Please enter your First name"],
         maxLength:[30,"First name cannot exceed 30 characters"],
-        
-    },LastName:{
+    },
+    lastName:{
         type:String,
-        // required:[true,"Please enter your Last name"],
         maxLength:[30,"Last name cannot exceed 30 characters"],
-        
-    },UserName:{
+    },
+    userName:{
         type:String,
         required:[true,"Please enter your Username"],
         maxLength:[30,"Username cannot exceed 30 characters"],
         
     },
-    PhoneNumber:{
+    phoneNumber:{
         type:Number,
-        required:true
-        
+        required:true  
     },
     email:{
         type:String,
@@ -36,7 +33,6 @@ const userSchema=mongoose.Schema({
     },
     password:{
         type:String,
-        required:[true,"Please enter your password"],
         minlength:[6,"your password must be longer than 6 characters"],
         select:false
     },
@@ -62,8 +58,6 @@ const userSchema=mongoose.Schema({
     },
     resetPasswordToken:String,
     resetPasswordExpire:Date
-    
-    
     })
  
 
