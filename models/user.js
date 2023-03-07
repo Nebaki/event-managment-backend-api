@@ -15,7 +15,7 @@ const userSchema=mongoose.Schema({
     },
     userName:{
         type:String,
-        required:[true,"Please enter your Username"],
+        // required:[true,"Please enter your Username"],
         maxLength:[30,"Username cannot exceed 30 characters"],
         
     },
