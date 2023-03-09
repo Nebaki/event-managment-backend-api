@@ -15,7 +15,7 @@ exports.phoneRegister = catchAsyncError(async (req, res, next) => {
 
     res.status(201).json({
         user,
-        status:'User Registered Succesfully',
+        message:'User Registered Succesfully',
     })
   
     // sendToken(user, 200, 'success');
@@ -24,8 +24,8 @@ exports.phoneRegister = catchAsyncError(async (req, res, next) => {
   });
 
   
-//Signin user using phone number  =>/api/v1/phone_signin
-exports.phoneSignin = catchAsyncError(async (req, res, next) => {
+//Checking phone number whether it is registered or not!  =>/api/v1/check
+exports.checkPhoneNumber = catchAsyncError(async (req, res, next) => {
     const { phoneNumber } = req.body;
   
     //check if phone number entered by the user is correct
@@ -36,13 +36,18 @@ exports.phoneSignin = catchAsyncError(async (req, res, next) => {
     //Finding the user in database
     const user = await User.findOne({ phoneNumber });
     if (!user) {
-      return next(new ErrorHandler("Phone Number not found", 401));
+      res.status(401).json({
+        status:false,
+        message:'Phone Number not found"',
+    })
+      // return next(new ErrorHandler("Phone Number not found", 401));
     }
   
 
     res.status(201).json({
-        user,
-        status:'User Logged In',
+      status:true,
+      message:'This Phone Number is found',
+      user,
     })
     // sendToken(user, 200, res);
   });

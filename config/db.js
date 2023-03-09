@@ -8,7 +8,7 @@ const connectDatabase=()=>{
     mongoose.connect(process.env.CONNECTION_STRING,{
         useNewUrlParser: true,
         useUnifiedTopology: true,
-        dbName:"Gebeya"
+        dbName:"Event"
     }).then(() => {
         console.log("Connected to Mongoose") ;
     

@@ -1,16 +1,15 @@
 const mongoose=require('mongoose');
-const validator=require('validator');
 
 const eventSchema=mongoose.Schema({
     eventName:{
         type:String,
         required:[true,"Please enter the Event name"],
     },
-    owner:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-        // required: true
-    },
+    // owner:{
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: "User",
+    //     // required: true
+    // },
     eventDescription:{
         type:String,  
     },
