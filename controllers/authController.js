@@ -6,12 +6,9 @@ const ErrorHandler = require("../utils/errorHandler");
 
 //Register user via phone number  =>/api/v1/phone_register
 exports.phoneRegister = catchAsyncError(async (req, res, next) => {
-    const { userName, phoneNumber} = req.body;
+    
   
-    const user = await User.create({     
-      userName,
-      phoneNumber,
-    });
+    const user = await User.create(req.body);
 
     res.status(201).json({
         user,

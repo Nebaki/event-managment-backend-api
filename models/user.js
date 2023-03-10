@@ -13,14 +13,9 @@ const userSchema=mongoose.Schema({
         type:String,
         maxLength:[30,"Last name cannot exceed 30 characters"],
     },
-    userName:{
-        type:String,
-        // required:[true,"Please enter your Username"],
-        maxLength:[30,"Username cannot exceed 30 characters"],
-        
-    },
     phoneNumber:{
         type:Number,
+        unique:true,
         required:true  
     },
     email:{
@@ -30,11 +25,6 @@ const userSchema=mongoose.Schema({
         // unique:true,
         // trim:true,
     
-    },
-    password:{
-        type:String,
-        minlength:[6,"your password must be longer than 6 characters"],
-        select:false
     },
     image:{
         type:String,
@@ -56,8 +46,6 @@ const userSchema=mongoose.Schema({
         type: Date,
             default: Date.now
     },
-    resetPasswordToken:String,
-    resetPasswordExpire:Date
     })
  
 

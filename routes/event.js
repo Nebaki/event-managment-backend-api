@@ -8,6 +8,7 @@ router.route(`/events/this-week`).get(getThisWeekEvents);
 router.route(`/events/this-month`).get(getThisMonthEvents);
 // search
 router.route(`/events?keyword=`).get(getEvents);
+router.route(`/events`).get(getEvents);
 
 
 router.route("/event/:id").get(getSingleEvent);
