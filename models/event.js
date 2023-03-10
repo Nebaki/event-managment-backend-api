@@ -20,10 +20,15 @@ const eventSchema=mongoose.Schema({
     eventType:{
         type:String,  
     },
-    eventLocation:{
-        type:String,  
-        required:[true,"Please enter the Event location"],
+    eventLatitude:{
+        type:Number,  
+        required:[true,"Please enter the Event latitude"],
     },
+    eventLongtitude:{
+        type:Number,  
+        required:[true,"Please enter the Event longtitude"],
+    },
+    
     startDateTime:{
         type: Date,
         required:[true,"Please specify the date and time where the event will start"],

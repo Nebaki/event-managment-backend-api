@@ -89,7 +89,6 @@ exports.getEvents=catchAsyncError(async (req, res) => {
   const events = await apifeatures.query ;
 
   res.status(200).json({
-    succes:true,
     count: events.length,
     events
   })
