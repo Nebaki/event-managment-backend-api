@@ -3,6 +3,77 @@ const catchAsyncError = require('../middlewares/catchAsyncErrors');
 const ErrorHandler = require("../utils/errorHandler");
 const dateFns = require('date-fns');
 const APIfeatures=require("../utils/apiFeatures");
+const cloudinary = require("../utils/cloudnary");
+const upload = require("../utils/multer");
+
+
+exports.addEvent = catchAsyncError(async (req, res, next) =>{
+
+try {
+  upload.single('image');
+  const result = await cloudinary.uploader.upload(req.file.path);
+
+  // Create new user
+  let event = new Event({
+    eventName: req.body.eventName,
+    eventDescription: req.body.eventDescription,
+    eventCategory: req.body.eventCategory,
+    eventType: req.body.eventType,
+    eventLatitude: req.body.eventLatitude,
+    eventLongtitude: req.body.eventLongtitude,
+    startDateTime: req.body.startDateTime,
+    endDateTime: req.body.endDateTime,
+    avatar: result.secure_url,
+    cloudinary_id: result.public_id,
+  });
+  // Save user
+  await Event.save();
+  res.json(event);
+} catch (err) {
+  console.log(err);
+}
+
+
+})
+
+
+
+ 
+
+// Add a new Event entity into the database =>/api/v1/event/new
+
+// exports.addEvent = catchAsyncError(async (req, res, next) => {
+//   upload(req,res,(err)=>{
+//     if(err){
+//       console.log(err)
+//     }else{
+    //   const event = new Event({
+    //     eventName: req.body.eventName,
+    // eventDescription: req.body.eventDescription,
+    // eventCategory: req.body.eventCategory,
+    // eventType: req.body.eventType,
+    // image:{
+    //   data:req.file.image, 
+    //   ContentType:'image/png'
+    // },
+    // eventLatitude: req.body.eventLatitude,
+    // eventLongtitude:req.body.eventLongtitude,
+    // startDateTime: req.body.startDateTime,
+    // endDateTime: req.body.endDateTime
+    //   });
+      
+      
+
+//       event.save().then(()=>res.send('succefully added')).catch((err)=>console.log(err))
+
+
+//     }
+//   })
+   
+
+    
+//   });
+
 
 //get single  Event using ID from databse /api/v1/event/:ID
 exports.getSingleEvent = catchAsyncError(async (req, res,next) => {
@@ -13,24 +84,12 @@ exports.getSingleEvent = catchAsyncError(async (req, res,next) => {
     
   }
   res.status(200).json({
-    success: true,
     event,
   });
 });
 
 
 
-// Add a new Event entity into the database =>/api/v1/event/new
-
-exports.addEvent = catchAsyncError(async (req, res, next) => {
-    const event = await Event.create(req.body);
-    res.status(201).json({
-    succes:true,
-    event
-  })
-
-    
-  });
 
   
 //get today's events  =>/api/v1/events/today
@@ -85,7 +144,7 @@ exports.getThisMonthEvents = catchAsyncError(async (req, res) => {
 
 // get all events and search =>/api/v1/events
 exports.getEvents=catchAsyncError(async (req, res) => {
-  const apifeatures=new APIfeatures(Event.find(),req.query).Search();
+  const apifeatures=new APIfeatures(Event.find(),req.query).Search().Filter();
   const events = await apifeatures.query ;
 
   res.status(200).json({

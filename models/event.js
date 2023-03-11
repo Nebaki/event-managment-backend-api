@@ -28,7 +28,6 @@ const eventSchema=mongoose.Schema({
         type:Number,  
         required:[true,"Please enter the Event longtitude"],
     },
-    
     startDateTime:{
         type: Date,
         required:[true,"Please specify the date and time where the event will start"],
@@ -37,9 +36,12 @@ const eventSchema=mongoose.Schema({
         type: Date,
         required:[true,"Please specify the date and time where the event will end"],
     },
-    imageUrl:{
-        type: String
-    },
+    avatar: {
+        type: String,
+      },
+      cloudinary_id: {
+        type: String,
+      },
     createdAt:{
         type: Date,
         default: Date.now
