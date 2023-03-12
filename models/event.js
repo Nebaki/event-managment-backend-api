@@ -1,5 +1,5 @@
 const mongoose=require('mongoose');
-
+var Double = require("mongodb").Double;
 const eventSchema=mongoose.Schema({
     eventName:{
         type:String,
@@ -21,11 +21,11 @@ const eventSchema=mongoose.Schema({
         type:String,  
     },
     eventLatitude:{
-        type:Number,  
+        type:String,  
         required:[true,"Please enter the Event latitude"],
     },
     eventLongtitude:{
-        type:Number,  
+        type:String,  
         required:[true,"Please enter the Event longtitude"],
     },
     startDateTime:{
