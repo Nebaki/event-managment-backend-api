@@ -1,5 +1,4 @@
 const mongoose=require('mongoose');
-var Double = require("mongodb").Double;
 const eventSchema=mongoose.Schema({
     eventName:{
         type:String,

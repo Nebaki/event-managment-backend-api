@@ -33,7 +33,7 @@ class APIfeatures{
             //Filter for price ,ratind and etc..
 
             let queryStr=JSON.stringify(queryCopy);
-            queryStr=queryStr.replace(/\b(gt|gte|lt|lte)\b/g,match=>`$${match}`);
+            queryStr=queryStr.replace(/\b(gt|gte|eq|lt|lte)\b/g,match=>`$${match}`);
             
             console.log(queryStr);
 

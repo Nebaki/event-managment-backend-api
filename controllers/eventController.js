@@ -7,6 +7,9 @@ const cloudinary = require("../utils/cloudnary");
 const upload = require("../utils/multer");
 
 
+
+
+
 exports.addEvent = catchAsyncError(async (req, res, next) =>{
 
 try {
