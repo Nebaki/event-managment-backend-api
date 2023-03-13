@@ -7,75 +7,8 @@ const cloudinary = require("../utils/cloudnary");
 const upload = require("../utils/multer");
 
 
-
-
-
-exports.addEvent = catchAsyncError(async (req, res, next) =>{
-
-try {
-  upload.single('image');
-  const result = await cloudinary.uploader.upload(req.file.path);
-
-  // Create new user
-  let event = new Event({
-    eventName: req.body.eventName,
-    eventDescription: req.body.eventDescription,
-    eventCategory: req.body.eventCategory,
-    eventType: req.body.eventType,
-    eventLatitude: req.body.eventLatitude,
-    eventLongtitude: req.body.eventLongtitude,
-    startDateTime: req.body.startDateTime,
-    endDateTime: req.body.endDateTime,
-    avatar: result.secure_url,
-    cloudinary_id: result.public_id,
-  });
-  // Save user
-  await Event.save();
-  res.json(event);
-} catch (err) {
-  console.log(err);
-}
-
-
-})
-
-
-
  
 
-// Add a new Event entity into the database =>/api/v1/event/new
-
-// exports.addEvent = catchAsyncError(async (req, res, next) => {
-//   upload(req,res,(err)=>{
-//     if(err){
-//       console.log(err)
-//     }else{
-    //   const event = new Event({
-    //     eventName: req.body.eventName,
-    // eventDescription: req.body.eventDescription,
-    // eventCategory: req.body.eventCategory,
-    // eventType: req.body.eventType,
-    // image:{
-    //   data:req.file.image, 
-    //   ContentType:'image/png'
-    // },
-    // eventLatitude: req.body.eventLatitude,
-    // eventLongtitude:req.body.eventLongtitude,
-    // startDateTime: req.body.startDateTime,
-    // endDateTime: req.body.endDateTime
-    //   });
-      
-      
-
-//       event.save().then(()=>res.send('succefully added')).catch((err)=>console.log(err))
-
-
-//     }
-//   })
-   
-
-    
-//   });
 
 
 //get single  Event using ID from databse /api/v1/event/:ID
@@ -155,3 +88,4 @@ exports.getEvents=catchAsyncError(async (req, res) => {
     events
   })
 })
+

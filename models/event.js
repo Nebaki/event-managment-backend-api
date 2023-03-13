@@ -41,6 +41,10 @@ const eventSchema=mongoose.Schema({
       cloudinary_id: {
         type: String,
       },
+    //   going:[{
+    //     type:mongoose.Schema.Types.ObjectId,
+    //     ref: "User",
+    //   }], 
     createdAt:{
         type: Date,
         default: Date.now
