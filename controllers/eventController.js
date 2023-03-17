@@ -2,10 +2,7 @@ const Event =require('../models/event');
 
 const catchAsyncError = require('../middlewares/catchAsyncErrors');
 const ErrorHandler = require("../utils/errorHandler");
-const dateFns = require('date-fns');
 const APIfeatures=require("../utils/apiFeatures");
-const cloudinary = require("../utils/cloudnary");
-const upload = require("../utils/multer");
 
 
  
