@@ -19,7 +19,7 @@ const userSchema=mongoose.Schema({
         required:true  
     },
     email:{
-        type:String,
+        type:String, 
         // required:[true,"Please enter your email"],
         // validator:[validator.isEmail,"Please enter a valid email address"], 
         // unique:true,
@@ -46,7 +46,18 @@ const userSchema=mongoose.Schema({
         type: Date,
             default: Date.now
     },
+    },{
+        timestamps:true 
     })
+
+
+    //Return jwt token   
+userSchema.methods.getJwtToken=function() {
+    return jwt.sign({id:this.id,},process.env.JWT_SECRETE,{
+        expiresIn: process.env.JWT_SECRETE_EXPIRATION_TIME
+    });
+}
+
  
 
     module.exports=mongoose.model('User',userSchema);

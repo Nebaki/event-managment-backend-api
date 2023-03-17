@@ -4,11 +4,6 @@ const eventSchema=mongoose.Schema({
         type:String,
         required:[true,"Please enter the Event name"],
     },
-    // owner:{
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: "User",
-    //     // required: true
-    // },
     eventDescription:{
         type:String,  
     },
@@ -16,16 +11,12 @@ const eventSchema=mongoose.Schema({
         type: String,
         required:[true,"Please select the Event Category"],
     },
-    eventType:{
+    fees:{
         type:String,  
     },
-    eventLatitude:{
+    location:{
         type:String,  
-        required:[true,"Please enter the Event latitude"],
-    },
-    eventLongtitude:{
-        type:String,  
-        required:[true,"Please enter the Event longtitude"],
+        required:[true,"Please enter the Event location"],
     },
     startDateTime:{
         type: Date,
@@ -38,13 +29,12 @@ const eventSchema=mongoose.Schema({
     avatar: {
         type: String,
       },
-      cloudinary_id: {
+    cloudinary_id: {
         type: String,
       },
-    //   going:[{
-    //     type:mongoose.Schema.Types.ObjectId,
-    //     ref: "User",
-    //   }], 
+    travlers:{
+        type:Number
+      },
     createdAt:{
         type: Date,
         default: Date.now
@@ -52,3 +42,7 @@ const eventSchema=mongoose.Schema({
     })
  
     module.exports=mongoose.model('Event',eventSchema);
+
+
+
+   

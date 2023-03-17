@@ -1,18 +1,21 @@
 const User =require('../models/user');
+const Event=require('../models/event')
 const catchAsyncError = require('../middlewares/catchAsyncErrors');
 const sendToken = require("../utils/jsonToken");
 const ErrorHandler = require("../utils/errorHandler");
 
 
 //Register user via phone number  =>/api/v1/phone_register
-exports.phoneRegister = catchAsyncError(async (req, res, next) => {
+exports.Register = catchAsyncError(async (req, res, next) => {
     
   
     const user = await User.create(req.body);
+    const token=user.getJwtToken();
 
     res.status(201).json({
         user,
         message:'User Registered Succesfully',
+        token
     })
   
     // sendToken(user, 200, 'success');
@@ -46,5 +49,23 @@ exports.checkPhoneNumber = catchAsyncError(async (req, res, next) => {
       message:'This Phone Number is found',
       user,
     })
-    // sendToken(user, 200, res);
   });
+
+
+  exports.changeProfile=catchAsyncError(async (req, res, next) => {
+
+    let user = await User.findById(req.params.id);
+    if (!user)
+  return next(new ErrorHandler("User not found",404));
+
+
+  user = await User.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true,
+    useFindAndModify: false,
+  });
+
+
+  res.status(200).json({ success: true, user });
+
+  })
