@@ -1,5 +1,9 @@
 const mongoose=require('mongoose');
 const eventSchema=mongoose.Schema({
+    user:{
+        type:mongoose.Schema.ObjectId,
+        ref:'User'
+    },
     eventName:{
         type:String,
         required:[true,"Please enter the Event name"],

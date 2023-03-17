@@ -3,23 +3,22 @@ const Event=require('../models/event')
 const catchAsyncError = require('../middlewares/catchAsyncErrors');
 const sendToken = require("../utils/jsonToken");
 const ErrorHandler = require("../utils/errorHandler");
+const jwt =require('jsonwebtoken');
 
 
 //Register user via phone number  =>/api/v1/phone_register
 exports.Register = catchAsyncError(async (req, res, next) => {
     
-  
-    const user = await User.create(req.body);
-    const token=user.getJwtToken();
+  const user = await User.create(req.body);
+  const token = user.getJwtToken();
 
     res.status(201).json({
+      message:'User Registered Succesfully',
         user,
-        message:'User Registered Succesfully',
         token
     })
   
-    // sendToken(user, 200, 'success');
-
+    
     
   });
 

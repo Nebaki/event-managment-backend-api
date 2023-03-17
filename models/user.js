@@ -13,16 +13,12 @@ const userSchema=mongoose.Schema({
         maxLength:[30,"Last name cannot exceed 30 characters"],
     },
     phoneNumber:{
-        type:Number,
+        type:String,
         unique:true,
         required:true  
     },
     email:{
         type:String, 
-        // required:[true,"Please enter your email"],
-        // validator:[validator.isEmail,"Please enter a valid email address"], 
-        // unique:true,
-        // trim:true,
     
     },
     image:{

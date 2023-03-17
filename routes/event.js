@@ -3,8 +3,8 @@ const router = express.Router();
 const Event = require("../models/event");
 const cloudinary = require("../utils/cloudnary");
 const upload = require("../utils/multer");
-
-const { getTodayEvents, getThisWeekEvents, getThisMonthEvents ,getSingleEvent,getEvents,serachEvents} = require("../controllers/eventController");
+const{isAuthenticated}=require('../middlewares/auth')
+const { getTodayEvents, getThisWeekEvents, getThisMonthEvents ,getSingleEvent,getEvents} = require("../controllers/eventController");
 
 router.route(`/events/today`).get(getTodayEvents);
 router.route(`/events/this-week`).get(getThisWeekEvents);
@@ -17,7 +17,7 @@ router.route("/event/:id").get(getSingleEvent);
 
 
 
-router.post("/", upload.single("image"),async (req, res) => {
+router.post("/",isAuthenticated, upload.single("image"),async (req, res) => {
   try {
     const result = await cloudinary.uploader.upload(req.file.path);
     let event = new Event({
@@ -31,6 +31,9 @@ router.post("/", upload.single("image"),async (req, res) => {
         avatar: result.secure_url,
         cloudinary_id: result.public_id,
         travlers:req.body.travlers,
+        user:req.user.id
+       
+
     });
     await event.save();
     res.json({

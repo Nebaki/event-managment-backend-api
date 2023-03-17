@@ -1,5 +1,4 @@
 const Event =require('../models/event');
-
 const catchAsyncError = require('../middlewares/catchAsyncErrors');
 const ErrorHandler = require("../utils/errorHandler");
 const APIfeatures=require("../utils/apiFeatures");
@@ -33,7 +32,9 @@ exports.getTodayEvents = catchAsyncError(async (req, res) => {
       $gte: new Date(new Date().setHours(00, 00, 00)),
       $lt: new Date(new Date().setHours(23, 59, 59)),
     },
-   });
+   }).populate('user',);
+
+   console.log(eventList)
 
     res.status(201).json({
         eventList,
